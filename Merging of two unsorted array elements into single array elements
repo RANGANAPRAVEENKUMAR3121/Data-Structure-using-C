@@ -1,0 +1,76 @@
+void main()
+{
+	int a[10],b[10],c[30],n,m,k,i,j,d=0,temp=0,pos=0;
+	clrscr();
+	printf("enter A array size:");
+	scanf("%d",&n);
+	printf("Enter A array elements:");
+	for(i=1;i<=n;i++)
+		scanf("%d",&a[i]);
+	printf("enter B array size:");
+	scanf("%d",&m);
+	printf("Enter B array elements:");
+	for(j=1;j<=m;j++)
+		scanf("%d",&b[j]);
+	i=1,j=1,k=1;
+	while(i<=n && j<=m)
+	{
+		if(a[i]<b[j])
+		{
+			c[k]=a[i];
+			i++;
+		}
+		else
+		{
+			c[k]=b[j];
+			j++;
+		}
+		k++;
+	}
+	if(i>n)
+	{
+		while(j<=m)
+		{
+			c[k]=b[j];
+			j++;
+			k++;
+		}
+	}
+	else
+	{
+		while(i<=n)
+		{
+			c[k]=a[i];
+			i++;
+			k++;
+		}
+	}
+	d=m+n;
+	for(k=1,i=1;k<=d;k++,i++)
+	      c[i]=c[k];
+	for(i=1;i<=d;i++)
+	{
+		for(j=i+1;j<=d;j++)
+		{
+			if(c[i]>c[j])
+			{
+				temp=c[j];
+				c[j]=c[i];
+				c[i]=temp;
+			}
+		}
+	}
+	printf("merged and sorted  array elements:\n");
+	for(i=1;i<=d;i++)
+		printf("%d\t",c[i]);
+	printf("\nenter position to delete:");
+	scanf("%d",&pos);
+	for(i=pos;i<d;i++)
+	{
+		c[i]=c[i+1];
+	}
+	d--;
+	printf("array elements after deleting  require position:\n");
+	for(i=1;i<=d;i++)
+		printf("%d\t",c[i]);
+}
