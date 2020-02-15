@@ -1,0 +1,209 @@
+
+Program of all operations in single linked list.
+------------------------------------------------
+#include<stdio.h>
+typedef struct list
+{
+    int data;
+    struct list *link;
+}node;
+node *head,*temp,*d;
+void insert()
+{
+    node *ptr;
+    ptr=(node *)malloc(sizeof(node));
+    printf("enter value:");
+    scanf("%d",&ptr->data);
+    ptr->link=NULL;
+    if(head==NULL)
+    {
+        head=ptr;
+        temp=head;
+    }
+    else
+    {
+        temp->link=ptr;
+        temp=ptr;
+    }
+}
+void beg()
+{
+    node *ptr;
+    ptr=(node *)malloc(sizeof(node));
+    printf("enter value:");
+    scanf("%d",&ptr->data);
+    printf("Entered element at begining is :%d",ptr->data);
+    ptr->link=head;
+    head=ptr;
+}
+void last()
+{
+    node *ptr;
+    ptr=(node *)malloc(sizeof(node));
+    printf("enter value:");
+    scanf("%d",&ptr->data);
+    printf("Entered element at last is :%d",ptr->data);
+    temp=head;
+    ptr->link=NULL;
+    while(temp->link!=NULL)
+        temp=temp->link;
+    temp->link=ptr;
+    temp=ptr;
+}
+void spe()
+{
+     node *ptr;
+     int pos=0,i;
+    ptr=(node *)malloc(sizeof(node));
+    printf("Enter position:");
+    scanf("%d",&pos);
+    printf("enter value:");
+    scanf("%d",&ptr->data);
+    printf("Entered position is :%d\n",pos);
+    printf("Entered element at last is :%d\n",ptr->data);
+    temp=head;
+    for(i=1;i<pos-1;i++)
+        temp=temp->link;
+    ptr->link=temp->link;
+    temp->link=ptr;
+}
+void del_f()
+{
+    temp=head;
+    printf("Deleting the first element in list:");
+    printf("%d",temp->data);
+    head=temp->link;
+    free(temp);
+}
+void del_l()
+{
+    temp=head;
+    while(temp->link->link!=NULL)
+        temp=temp->link;
+    d=temp->link;
+    printf("Deleting the last element in list:");
+    printf("%d",d->data);
+    temp->link=NULL;
+    free(d);
+}
+void del_s()
+{
+    int i,pos=0;
+    temp=head;
+    printf("Enter position:");
+    scanf("%d",&pos);
+    for(i=1;i<pos-1;i++)
+        temp=temp->link;
+    d=temp->link;
+    printf("Entered position is :%d\n",pos);
+    printf("Deleted element is :%d\n",d->data);
+    temp->link=d->link;
+    d->link=NULL;
+    free(d);
+}
+void sort()
+{
+    int t=0;
+    node *t1,*t2;
+    printf("Elements are Sorted press '2' to display:\n");
+    for(t1=head;t1->link!=NULL;t1=t1->link)
+    {
+        for(t2=head;t2->link!=NULL;t2=t2->link)
+        {
+            if(t2->data > t2->link->data)
+            {
+                t=t2->data;
+                t2->data=t2->link->data;
+                t2->link->data=t;
+            }
+        }
+    }
+}
+void search()
+{
+    int flag=0,ele=0;
+    printf("Enter element to search:");
+    scanf("%d",&ele);
+    for(temp=head;temp!=NULL;temp=temp->link)
+    {
+        if(temp->data==ele)
+        {
+            flag++;
+            break;
+        }
+    }
+    if(flag==1)
+        printf("Element found =%d",temp->data);
+    else
+        printf("Element not found");
+}
+void display()
+{
+    temp=head;
+    while(temp!=NULL)
+    {
+        printf("%d\t",temp->data);
+        temp=temp->link;
+    }
+}
+int main()
+{
+    int i,n,m;
+    printf("Linked List operations\n");
+    printf("=======================\n");
+    printf("Press '1' to insert elements.\n");
+    printf("Press '2' to display all elements.\n");
+    printf("Press '3' to insert element at beginning position.\n");
+    printf("Press '4' to insert element at end position.\n");
+    printf("Press '5' to insert element at specified position.\n");
+    printf("Press '6' to delete element at beginning position.\n");
+    printf("Press '7' to delete element at last position.\n");
+    printf("Press '8' to delete element at specified position.\n");
+    printf("Press '9' to sort elements.\n");
+    printf("Press '10' to search an element.\n");
+    printf("Press '11' to  EXIT.\n");
+    do{
+    printf("\nEnter your choice:");
+    scanf("%d",&m);
+    switch(m)
+    {
+        case 1:
+                printf("enter n elements :");
+                scanf("%d",&n);
+                for(i=1;i<=n;i++)
+                        insert();
+                    break;
+        case 2:
+                printf("Elements you entered are:\n");
+                display();
+                break;
+        case 3:
+                beg();
+                break;
+        case 4:
+                last();
+                break;
+        case 5:
+                spe();
+                break;
+        case 6:
+                del_f();
+                break;
+        case 7:
+                del_l();
+                break;
+         case 8:
+                del_s();
+                break;
+         case 9:
+                sort();
+                break;
+         case 10:
+                search();
+                break;
+        case 11:printf("Operations are completed");
+                break;
+    }
+    }while(m!=11);
+    return 0;
+}
